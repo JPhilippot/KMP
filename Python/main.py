@@ -14,11 +14,11 @@ def correspondances(seq):
         j+=1
         tabcorres[i]=j
     return tabcorres
-    
+
 def kmp (seq, text):
     if not seq:                # si on passe le mot vide on renvoie 0
         return 0
-    elif len(seq) > len(text): # si on passe un mot trop long 
+    elif len(seq) > len(text): # si on passe un mot trop long
         return -1              # par rapport au texte, erreur
     tabcorres=correspondances(seq)
     i=0
@@ -32,7 +32,7 @@ def kmp (seq, text):
            return i-j         # renvoie
 
     return -1                 # on a pas trouvé le mot
-            
+
 
 if __name__=="__main__":
     if len(sys.argv) != 3:
@@ -53,3 +53,4 @@ if __name__=="__main__":
             print("Le mot \""+sys.argv[1]+
                   "\" se trouve pour la première fois à partir de la position: "+
                   str(kmp(sys.argv[1], f.read()))+" dans le fichier "+file)
+            f.close()

@@ -12,9 +12,9 @@ affichera la position de `test` dans `ceci est un test`.
 ```bash
 ./main.py "fichier" "test.txt"
 ```
-affichera la position de "fichier" dans le fichier `test.txt`.
+affichera la position de `fichier` dans le fichier `test.txt`.
 
 ```bash
 ./main.py "fichier" "*.txt"
 ```
-affichera la position de "fichier" dans les fichiers avec extension `.txt` dans le répertoire courant.
+affichera la position de `fichier` dans les fichiers avec extension `.txt` dans le répertoire courant.

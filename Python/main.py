@@ -28,8 +28,8 @@ def kmp (seq, text):
             j=tabcorres[j]
         i+=1
         j+=1
-        if j == len(seq):     # si on a trouvé le mot on le
-           return i-j         # renvoie
+        if j == len(seq):     # si on a trouvé le mot on
+           return i-j         # renvoie sa position
 
     return -1                 # on a pas trouvé le mot
 

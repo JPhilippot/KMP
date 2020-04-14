@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdio>
+#include <cstdlib>
 using namespace std;
 
 vector<int> preprocess(string s)
@@ -91,34 +92,75 @@ int algoNaif(string str, string target)
 }
 int main(int argc, const char *argv[])
 {
+    string f = "-f";
     if (argc < 3 || argc > 4)
     {
         cout << "Mauvaise utilisation de KMP ! L'appel doit s'effectuer comme ceci :" << argv[0] << " séquenceDeRéférence séquenceAtrouver" << endl;
-        cout << "OU" << endl;
-        cout << argv[0] << "-f fichier séquenceAtrouver" << endl;
+        cout << "   OU" << endl;
+        cout << argv[0] << " -f fichier séquenceAtrouver" << endl;
         return -1;
     }
     else
     {
         if (argc = 4)
         {
-            if (argv[1] == '-f')
+            if (argv[1] == f)
             {
-                FILE * f = fopen ( argv[2], r);
-                
 
+                FILE *file;
+                long lSize;
+                char *buffer;
+                size_t result;
+                file == fopen(argv[2], "r");
+                if (file == NULL)
+                {
+                    fputs("File error", stderr);
+                    exit(1);
+                }
+                cout<<"1"<<endl;
+                // obtain file size:
+                fseek(file, 0, SEEK_END);
+                cout<<"1.1"<<endl;
+                lSize = ftell(file);
+                cout<<"1.2"<<endl;
+                rewind(file);
+                
+                cout<<"2"<<endl;
+                // allocate memory to contain the whole file:
+                buffer = (char *)malloc(sizeof(char) * lSize);
+                if (buffer == NULL)
+                {
+                    fputs("Memory error", stderr);
+                    exit(2);
+                }
+                cout<<"3"<<endl;
+                // copy the file into the buffer:
+                result = fread(buffer, 1, lSize, file);
+                if (result != lSize)
+                {
+                    fputs("Reading error", stderr);
+                    exit(3);
+                }
+                cout<<"soleil"<<endl;
+                cout << "[Appel naïf] ";
+                algoNaif(buffer, argv[3]);
+                cout << "[Appel KMP] ";
+                kmp(buffer, argv[3]);
+
+                fclose(file);
+                free(buffer);
             }
             else
             {
                 cout << "Paramètre " << argv[1] << " non reconnu !\n L'appel doit s'effectuer comme ceci :" << argv[0] << " séquenceDeRéférence séquenceAtrouver" << endl;
                 cout << "OU" << endl;
-                cout << argv[0] << "-f fichier séquenceAtrouver" << endl;
+                cout << argv[0] << " -f fichier séquenceAtrouver" << endl;
             }
         }
 
         else
         {
-            cout << "Veuillez noter qu'il est également possible de lire des fichier en utilisant : " argv[0] << "-f fichier séquenceAtrouver" << endl;
+            cout << "Veuillez noter qu'il est également possible de lire des fichier en utilisant : " << argv[0] << "-f fichier séquenceAtrouver" << endl;
             cout << "[Appel naïf] ";
             algoNaif(argv[1], argv[2]);
             cout << "[Appel KMP] ";
@@ -126,4 +168,5 @@ int main(int argc, const char *argv[])
             return 0;
         }
     }
+}
 #endif

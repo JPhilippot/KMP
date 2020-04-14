@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-
+from pycallgraph import PyCallGraph
+from pycallgraph.output import GraphvizOutput
 import sys,os,glob
 
 def correspondances(seq):
@@ -28,8 +29,9 @@ def kmp (seq, text):
             j=tabcorres[j]
         i+=1
         j+=1
-        if j == len(seq):     # si on a trouvé le mot on
-           return i-j         # renvoie sa position
+        if j == len(seq):     # si on a trouvé le mot on affiche sa position
+            print("Le mot \""+seq+"\" se trouve en position: "+str(i-j))
+            j=tabcorres[j-1]
 
     return -1                 # on a pas trouvé le mot
 
@@ -42,15 +44,12 @@ if __name__=="__main__":
     files = []
     for file in glob.glob(sys.argv[2]):
         files.append(file)
-
-    if not files:
-        print("Le mot \""+sys.argv[1]+
-              "\" se trouve pour la première fois à partir de la position: "+
-              str(kmp(sys.argv[1], sys.argv[2])))
-    else:
-        for file in files:
-            f=open(file,"r")
-            print("Le mot \""+sys.argv[1]+
-                  "\" se trouve pour la première fois à partir de la position: "+
-                  str(kmp(sys.argv[1], f.read()))+" dans le fichier "+file)
-            f.close()
+    with PyCallGraph(output=GraphvizOutput()):
+        if not files:
+            kmp(sys.argv[1], sys.argv[2])
+        else:
+            for file in files:
+                f=open(file,"r")
+                print("Dans le fichier \""+ file+"\"")
+                kmp(sys.argv[1], f.read())
+                f.close()

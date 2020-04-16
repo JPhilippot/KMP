@@ -24,17 +24,32 @@ def kmp (seq, text):
     tabcorres=correspondances(seq)
     i=0
     j=0
+    nbOcc=0
     while i < len(text):       # tant qu'on a pas parcouru tout le texte
         while j >= 0 and text[i] != seq[j]:
             j=tabcorres[j]
         i+=1
         j+=1
         if j == len(seq):     # si on a trouvé le mot on affiche sa position
-            print("Le mot \""+seq+"\" se trouve en position: "+str(i-j))
+            # print("Le mot \""+seq+"\" se trouve en position: "+str(i-j))
             j=tabcorres[j-1]
+            nbOcc+=1
 
-    return -1                 # on a pas trouvé le mot
+    return -1 if nbOcc==0 else nbOcc
 
+def algonaif (seq, text):
+    list_pos=[]
+    n=len(text)
+    m=len(seq)
+
+    for i in range(n-m+1):
+        j=0
+        while (j<m and text[i+j]==seq[j]):
+            j+=1
+        if j==m:
+            list_pos.append(i)
+
+    return len(list_pos)
 
 if __name__=="__main__":
     if len(sys.argv) != 3:
@@ -46,10 +61,17 @@ if __name__=="__main__":
         files.append(file)
     with PyCallGraph(output=GraphvizOutput()):
         if not files:
-            kmp(sys.argv[1], sys.argv[2])
+            print("__Version Naïve__:")
+            print("Il y a "+str(algonaif(sys.argv[1], sys.argv[2]))+" occurences de "+sys.argv[1])
+            print("__Version KMP__:")
+            print("Il y a "+str(kmp(sys.argv[1], sys.argv[2]))+" occurences de "+sys.argv[1])
         else:
             for file in files:
                 f=open(file,"r")
+                content = f.read()
                 print("Dans le fichier \""+ file+"\"")
-                kmp(sys.argv[1], f.read())
+                print("__Version Naïve__:")
+                print("Il y a "+str(algonaif(sys.argv[1], content))+" occurences de "+sys.argv[1])
+                print("__Version KMP__:")
+                print("Il y a "+str(kmp(sys.argv[1], content))+" occurences de "+sys.argv[1])
                 f.close()

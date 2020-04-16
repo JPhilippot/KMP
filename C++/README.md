@@ -1,4 +1,4 @@
-## Implémentation de KMP en Python
+## Implémentation de KMP en C++
 
 Ceci est une implémentation de l'algorithme de recherche KMP  et son équivalent naïf en C++.
 

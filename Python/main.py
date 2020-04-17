@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from pycallgraph import PyCallGraph
 from pycallgraph.output import GraphvizOutput
-import sys,os,glob
+import sys,os,glob,time
 
 def correspondances(seq):
     tabcorres=[0 for x in range(len(seq)+1)]
@@ -62,16 +62,26 @@ if __name__=="__main__":
     with PyCallGraph(output=GraphvizOutput()):
         if not files:
             print("__Version Naïve__:")
+            deb = time.clock()
             print("Il y a "+str(algonaif(sys.argv[1], sys.argv[2]))+" occurences de "+sys.argv[1])
+            print("Durée: "+str(time.clock()-deb))
             print("__Version KMP__:")
+            deb = time.clock()
             print("Il y a "+str(kmp(sys.argv[1], sys.argv[2]))+" occurences de "+sys.argv[1])
+            print("Durée: "+str(time.clock()-deb))
         else:
             for file in files:
                 f=open(file,"r")
                 content = f.read()
                 print("Dans le fichier \""+ file+"\"")
+
                 print("__Version Naïve__:")
+                deb = time.clock()
                 print("Il y a "+str(algonaif(sys.argv[1], content))+" occurences de "+sys.argv[1])
+                print("Durée: "+str(time.clock()-deb))
+
                 print("__Version KMP__:")
+                deb = time.clock()
                 print("Il y a "+str(kmp(sys.argv[1], content))+" occurences de "+sys.argv[1])
+                print("Durée: "+str(time.clock()-deb))
                 f.close()

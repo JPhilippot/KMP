@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <time.h>
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -61,15 +62,21 @@ int main(int argc, const char *argv[])
                     exit(3);
                 }
                 ofstream output("results.data");
-                deb = clock();
                 cout << "[Appel naïf] ";
+                deb = clock();
                 cout << algoNaif(buffer, argv[3]) << " occurences trouvées" << endl;
                 fin = clock();
                 cout << (float)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
                 output << "C++[naif] " << (float)(fin - deb) / CLOCKS_PER_SEC<<endl;
-                deb = clock();
+                
+                
+                std::vector<int> backtable(strlen(argv[3]) + 1);
+                backtable = preprocess(argv[3]);
+                
+                
                 cout << "[Appel KMP] ";
-                cout << kmp(buffer, argv[3]) << " occurences trouvées" << endl;
+                deb = clock();
+                cout << kmp(buffer, argv[3],backtable) << " occurences trouvées" << endl;
                 fin = clock();
                 cout << (float)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
                 output << "C++[KMP] " << (float)(fin - deb) / CLOCKS_PER_SEC;
@@ -91,14 +98,16 @@ int main(int argc, const char *argv[])
             cout << "Veuillez noter qu'il est également possible de lire des fichier en utilisant : " << argv[0] << " -f fichier séquenceAtrouver" << endl;
             cout << "[Appel naïf] ";
             deb = clock();
-            cout << "[Appel naïf] ";
             cout << algoNaif(argv[1], argv[2]) << " occurences trouvées" << endl;
             fin = clock();
             cout << (float)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
             output << "C++[naif] " << (float)(fin - deb) / CLOCKS_PER_SEC<<endl;
-            deb = clock();
-            cout << "[Appel KMP] ";
-            cout << kmp(argv[1], argv[2]) << " occurences trouvées" << endl;
+            std::vector<int> backtable(strlen(argv[2]) + 1);
+                backtable = preprocess(argv[2]);
+                cout << "[Appel KMP] ";
+                deb = clock();
+               
+                cout << kmp(argv[1], argv[2],backtable) << " occurences trouvées" << endl;
             fin = clock();
             cout << (float)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
             output << "C++[KMP] " << (float)(fin - deb) / CLOCKS_PER_SEC;

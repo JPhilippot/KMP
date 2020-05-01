@@ -78,7 +78,7 @@ if __name__=="__main__":
 
             #On sauvegarde dans le fichier
             content="Python[naif] "+str(timenaiftot/nb_tests)+"\nPython[KMP] "+str(timekmptot/nb_tests)+"\n"
-            f=open("results.data","w")
+            f=open("../Results/results-Python.data","w")
             f.write(content)
             f.close()
         else:
@@ -106,6 +106,7 @@ if __name__=="__main__":
 
             #On sauvegarde dans le fichier
             content="Python[naif] "+str(timenaiftot/nb_tests)+"\nPython[KMP] "+str(timekmptot/nb_tests)+"\n"
-            f=open("results.data","w")
+            f=open("../Results/results-Python.data","w")
             f.write(content)
             f.close()
+    print("-----Done-----")

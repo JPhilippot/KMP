@@ -1,1 +1,0 @@
-Ceci est un test avec un fichier texte.

@@ -61,27 +61,45 @@ if __name__=="__main__":
         files.append(file)
     with PyCallGraph(output=GraphvizOutput()):
         if not files:
+            ##################################################
             print("__Version Naïve__:")
             deb = time.clock()
             print("Il y a "+str(algonaif(sys.argv[1], sys.argv[2]))+" occurences de "+sys.argv[1])
-            print("Durée: "+str(time.clock()-deb))
+            timenaif=str(time.clock()-deb)
+            print("Durée: "+timenaif)
+            ##################################################
             print("__Version KMP__:")
             deb = time.clock()
             print("Il y a "+str(kmp(sys.argv[1], sys.argv[2]))+" occurences de "+sys.argv[1])
-            print("Durée: "+str(time.clock()-deb))
+            timekmp=str(time.clock()-deb)
+            print("Durée: "+timekmp)
+
+            #On sauvegarde dans le fichier
+            content="Python[naif] "+timenaif+"\nPython[KMP] "+timekmp
+            f=open("results.data","w")
+            f.write(content)
+            f.close()
         else:
             for file in files:
                 f=open(file,"r")
                 content = f.read()
                 print("Dans le fichier \""+ file+"\"")
 
+            ##################################################
                 print("__Version Naïve__:")
                 deb = time.clock()
                 print("Il y a "+str(algonaif(sys.argv[1], content))+" occurences de "+sys.argv[1])
-                print("Durée: "+str(time.clock()-deb))
-
+                timenaif=str(time.clock()-deb)
+                print("Durée: "+timenaif)
+            ##################################################
                 print("__Version KMP__:")
                 deb = time.clock()
                 print("Il y a "+str(kmp(sys.argv[1], content))+" occurences de "+sys.argv[1])
-                print("Durée: "+str(time.clock()-deb))
+                timekmp=str(time.clock()-deb)
+                print("Durée: "+timekmp)
                 f.close()
+            #On sauvegarde dans le fichier
+            content="Python[naif] "+timenaif+"\nPython[KMP] "+timekmp
+            f=open("results.data","w")
+            f.write(content)
+            f.close()

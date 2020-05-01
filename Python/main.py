@@ -50,10 +50,11 @@ def algonaif (seq, text):
     return len(list_pos)
 
 if __name__=="__main__":
-    if len(sys.argv) != 4:
-        print("USAGE: ./main.py <séquence_à_trouver> <texte | chemin/vers/un/ou/des/fichier> <nb_tests>")
+    if len(sys.argv) != 5:
+        print("USAGE: ./main.py <séquence_à_trouver> <texte | chemin/vers/un/ou/des/fichier> <nb_tests> <fichier_resultats>")
         exit(1)
     nb_tests=int(sys.argv[3])
+    fichier_results=sys.argv[4]
     timenaiftot=0
     timekmptot=0
     files = []
@@ -78,7 +79,7 @@ if __name__=="__main__":
 
             #On sauvegarde dans le fichier
             content="Python[naif] "+str(timenaiftot/nb_tests)+"\nPython[KMP] "+str(timekmptot/nb_tests)+"\n"
-            f=open("../Results/results-Python.data","w")
+            f=open(fichier_results,"w")
             f.write(content)
             f.close()
         else:
@@ -106,7 +107,7 @@ if __name__=="__main__":
 
             #On sauvegarde dans le fichier
             content="Python[naif] "+str(timenaiftot/nb_tests)+"\nPython[KMP] "+str(timekmptot/nb_tests)+"\n"
-            f=open("../Results/results-Python.data","w")
+            f=open(fichier_results,"w")
             f.write(content)
             f.close()
     print("-----Done-----")

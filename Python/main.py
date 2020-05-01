@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-from pycallgraph import PyCallGraph
-from pycallgraph.output import GraphvizOutput
 import sys,os,glob,time
 
 def correspondances(seq):
@@ -59,7 +57,6 @@ if __name__=="__main__":
     files = []
     for file in glob.glob(sys.argv[2]):
         files.append(file)
-    with PyCallGraph(output=GraphvizOutput()):
         if not files:
             ##################################################
             print("__Version Naïve__:")
@@ -86,18 +83,18 @@ if __name__=="__main__":
                 print("Dans le fichier \""+ file+"\"")
 
             ##################################################
-                print("__Version Naïve__:")
-                deb = time.clock()
-                print("Il y a "+str(algonaif(sys.argv[1], content))+" occurences de "+sys.argv[1])
-                timenaif=str(time.clock()-deb)
-                print("Durée: "+timenaif)
+            print("__Version Naïve__:")
+            deb = time.clock()
+            print("Il y a "+str(algonaif(sys.argv[1], content))+" occurences de "+sys.argv[1])
+            timenaif=str(time.clock()-deb)
+            print("Durée: "+timenaif)
             ##################################################
-                print("__Version KMP__:")
-                deb = time.clock()
-                print("Il y a "+str(kmp(sys.argv[1], content))+" occurences de "+sys.argv[1])
-                timekmp=str(time.clock()-deb)
-                print("Durée: "+timekmp)
-                f.close()
+            print("__Version KMP__:")
+            deb = time.clock()
+            print("Il y a "+str(kmp(sys.argv[1], content))+" occurences de "+sys.argv[1])
+            timekmp=str(time.clock()-deb)
+            print("Durée: "+timekmp)
+            f.close()
             #On sauvegarde dans le fichier
             content="Python[naif] "+timenaif+"\nPython[KMP] "+timekmp
             f=open("results.data","w")

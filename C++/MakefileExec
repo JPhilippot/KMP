@@ -1,0 +1,19 @@
+CC=g++
+CFLAGS=
+LDFLAGS=
+EXEC=./C++/kmp
+
+all: $(EXEC)
+
+./C++/kmp: ./C++/kmp.o ./C++/main.o
+	$(CC) -o ./C++/kmp ./C++/kmp.o ./C++/main.o $(LDFLAGS)
+
+./C++/kmp.o: ./C++/fonctions.cc
+	$(CC) -o ./C++/kmp.o -c ./C++/fonctions.cc $(CFLAGS)
+
+./C++/main.o: ./C++/main.cc ./C++/fonctions.h
+	$(CC) -o ./C++/main.o -c ./C++/main.cc $(CFLAGS)
+
+clean:
+	rm -rf ./C++/*.o
+	rm -rf $(EXEC)

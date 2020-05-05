@@ -82,7 +82,7 @@ static //Fonction de traitement du fichier
 		System.out.println("Temps d'execution : " + (end - start)/1000);
 		try{
  		FileWriter fw = new FileWriter("Results/resultJava.data",true);
-		 fw.write(String.valueOf((end - start)/1000)+ "\n");
+		 fw.write("KMP Java :" + String.valueOf((end - start)/1000)+ "\n");
 		 fw.close();
 		}
 		catch(Exception e) {

@@ -5,7 +5,8 @@ std::vector<int> preprocess(std::string s)
 {
     std::vector<int> backtable(s.size() + 1);
     backtable[0] = -1;
-    int i = 0, j = -1;
+    size_t i = 0; 
+    int j = -1;
     while (i < s.size())
     {
         while (j >= 0 && s[i] != s[j])
@@ -18,7 +19,8 @@ std::vector<int> preprocess(std::string s)
 int kmp(std::string str, std::string target, std::vector<int> backtable)
 {
 
-    int i = 0, j = 0, cpt = 0;
+    size_t i = 0, cpt = 0;
+    int j = 0; 
     while (i < str.size())
     {
         while (j >= 0 && str[i] != target[j])
@@ -33,49 +35,11 @@ int kmp(std::string str, std::string target, std::vector<int> backtable)
     return cpt;
 }
 
-// int algoNaif(std::string str, std::string target)
-// {
-//     // std::cout << "Comparons " << str << " avec " << target << std::endl;
-//     int cpt = 0;
-//     if (target.empty())
-//     {
-//         // std::cout << "Il y a aucune occurence(s) de " << target << " dans " << str << "." << std::endl;
-//         return 0;
-//     }
-
-//     else if (target.size() > str.size())
-//     {
-//         // std::cout << "La séquence à comparer est vide, fin de l'algorithme." << std::endl;
-//         return -1;
-//     }
-//     unsigned int tmpCount = 0;
-//     for (unsigned int i = 0; i < str.size(); i++)
-//     {
-//         unsigned int j = 0;
-//         unsigned int tmpI = i;
-//         while (str[i] == target[j])
-//         {
-//             tmpCount++;
-//             if (tmpCount == target.size())
-//             {
-//                 cpt++;
-//                 tmpCount = 0;
-//             }
-//             j++;
-//             i++;
-//         }
-//         tmpCount = 0;
-//         i = tmpI;
-//     }
-//     // std::cout << "Il y a " << cpt << " occurence(s) de " << target << " dans " << str << "." << std::endl;
-//     return cpt;
-// }
-
 int algoNaif(std::string str, std::string target)
-{   int cpt =0;
-    for (int i = 0; i < (str.size() - target.size() + 1); i++)
+{   size_t cpt =0;
+    for (size_t i = 0; i < (str.size() - target.size() + 1); i++)
     {
-        int j = 0;
+        size_t j = 0;
         while (j < target.size() && str[i + j] == target[j])
         {
             j++;

@@ -16,7 +16,6 @@ int main(int argc, const char *argv[])
     double totalNaif = 0;
     double totalKMP = 0;
     clock_t deb, fin;
-    struct rusage usg;
     string f = "-f";
     unsigned int nbOcc = 0;
     unsigned int nbExec = atoi(argv[1]);
@@ -74,7 +73,7 @@ int main(int argc, const char *argv[])
                     nbOcc = algoNaif(buffer, argv[4]);
                     fin = clock();
                     cout << nbOcc << " occurences trouvées" << endl;
-                    cout << (double)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
+                    cout << (double)(fin - deb) / CLOCKS_PER_SEC << endl;
                     totalNaif += (double)(fin - deb) / CLOCKS_PER_SEC;
             }
              output << "C++[naif] " << totalNaif/nbExec << endl;
@@ -89,7 +88,7 @@ int main(int argc, const char *argv[])
                     nbOcc = kmp(buffer, argv[4], backtable);
                     fin = clock();
                     cout << nbOcc << " occurences trouvées" << endl;
-                    cout << (double)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
+                    cout << (double)(fin - deb) / CLOCKS_PER_SEC << endl;
                     totalKMP += (double)(fin - deb) / CLOCKS_PER_SEC;
             }
              output << "C++[KMP] " << totalKMP/nbExec << endl;;
@@ -119,7 +118,7 @@ int main(int argc, const char *argv[])
                 nbOcc = algoNaif(argv[2], argv[3]);
                 fin = clock();
                 cout << nbOcc << " occurences trouvées" << endl;
-                cout << (double)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
+                cout << (double)(fin - deb) / CLOCKS_PER_SEC << endl;
                 totalNaif += (double)(fin - deb) / CLOCKS_PER_SEC;
             }
              output << "C++[naif] " << totalNaif/nbExec << endl;
@@ -134,7 +133,7 @@ int main(int argc, const char *argv[])
                 nbOcc = kmp(argv[2], argv[3], backtable);
                 fin = clock();
                 cout << nbOcc << " occurences trouvées" << endl;
-                cout << (double)(fin - deb) / CLOCKS_PER_SEC << "\t" << usg.ru_utime.tv_sec + usg.ru_utime.tv_usec / 1000000. << "\t" << usg.ru_stime.tv_sec + usg.ru_stime.tv_usec / 1000000. << "\t" << usg.ru_maxrss << endl;
+                cout << (double)(fin - deb) / CLOCKS_PER_SEC << endl;
                totalKMP += (double)(fin - deb) / CLOCKS_PER_SEC;
             }
              output << "C++[KMP] " << totalKMP/nbExec << endl;;

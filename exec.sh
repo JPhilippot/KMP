@@ -17,7 +17,11 @@ if [ $# != 3 ]
     echo "Execution de la version Python"
     ./Python/main.py "$3" "$2" "$1" "./Results/result-py.data"
     #execution de la version Java
-
+    echo "Execution Java"
+    javac ./Java/KmpAlgorithme.java
+    cd ./Java
+    java KmpAlgorithme $1 ".$2" $3
+    cd ..
     echo "Recupération de la moyenne des résultats obtenus."
     cat ./Results/*.data > ./Results/all.data
     echo "Création du graphe."

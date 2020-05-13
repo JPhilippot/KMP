@@ -71,7 +71,6 @@ static //Fonction de traitement du fichier
 			else if (i < N && pattern.charAt(index) != text.charAt(i)) {
 				if (index != 0) {
 					index = Tab[index - 1];
-					index++;
 				}
 				else {
 					i = i + 1;

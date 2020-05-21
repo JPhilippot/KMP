@@ -25,6 +25,6 @@ if [ $# != 3 ]
     echo "Recupération de la moyenne des résultats obtenus."
     cat ./Results/*.data > ./Results/all.data
     echo "Création du graphe."
-    ./make-plot.gp
+    gnuplot -e "filename='$2'" -e "seq='$3'" ./make-plot.gp
 
 fi

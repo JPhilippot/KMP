@@ -7,17 +7,17 @@ import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.FileWriter;
 public class KmpAlgorithme {
-	
-	
-static //Fonction de traitement du fichier
-	String ouvrirFichier(String fichier) throws IOException {
-	    Path pathToFile = Paths.get(fichier);
-	    System.out.println(pathToFile.toAbsolutePath());
-		String chaine = String.join("", Files.readAllLines(pathToFile));
-		return chaine;
-		
-	}
-//Fonction de pré-traitement du texte
+
+
+    static //Fonction de traitement du fichier
+        String ouvrirFichier(String fichier) throws IOException {
+            Path pathToFile = Paths.get(fichier);
+            System.out.println(pathToFile.toAbsolutePath());
+            String chaine = new String(Files.readAllBytes(pathToFile));
+            return chaine;
+
+        }
+  //Fonction de pré-traitement du texte
 	void Pretraitement(String pattern,int M, int Tab[]) {
 		int taille = 0;
 		int i = 1;
